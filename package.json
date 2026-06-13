@@ -1,0 +1,33 @@
+{
+  "name": "self-healing-agent",
+  "version": "1.0.0",
+  "description": "Autonomous Coding Agent with Self-Healing TDD Loops and Localhost Security",
+  "main": "bin/cli.js",
+  "bin": {
+    "heal-agent": "./bin/cli.js",
+    "shc-agent": "./bin/cli.js"
+  },
+  "scripts": {
+    "test": "pytest tests/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ntd25022006q/self-healing-agent.git"
+  },
+  "keywords": [
+    "ai",
+    "agent",
+    "self-healing",
+    "tdd",
+    "coding"
+  ],
+  "author": "ntd25022006q",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ntd25022006q/self-healing-agent/issues"
+  },
+  "homepage": "https://github.com/ntd25022006q/self-healing-agent#readme",
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}
