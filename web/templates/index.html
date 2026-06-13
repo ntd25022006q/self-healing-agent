@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Self-Healing Coding Agent - Dashboard</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="glass-container">
+        <!-- Header -->
+        <header>
+            <div class="logo-area">
+                <span class="pulse-dot"></span>
+                <h1>Self-Healing Agent</h1>
+                <p>Autonomous TDD Coding Assistant</p>
+            </div>
+            <div class="score-card">
+                <span class="score-label">Agent Score</span>
+                <span id="agent-score" class="score-val">100</span>
+            </div>
+        </header>
+
+        <!-- Main Workspace -->
+        <main class="dashboard-grid">
+            <!-- Left Panel: Input & Control -->
+            <section class="panel control-panel">
+                <h2>Prompt Yêu cầu</h2>
+                <div class="input-group">
+                    <textarea id="prompt-input" placeholder="Ví dụ: Viết một hàm lấy tỷ giá USD sang VND sử dụng thư viện requests..."></textarea>
+                    <button id="run-btn" onclick="startAgent()">Chạy Agentic Loop</button>
+                </div>
+                <div class="status-card">
+                    <h3>Trạng thái hệ thống</h3>
+                    <div class="status-indicators">
+                        <div class="status-item"><span class="label">Localhost API:</span> <span class="val secure">Secure (Loopback)</span></div>
+                        <div class="status-item"><span class="label">Sandbox Env:</span> <span class="val" id="sandbox-status">Sẵn sàng (venv)</span></div>
+                        <div class="status-item"><span class="label">Model:</span> <span class="val" id="model-status">Ollama / Qwen-2.5</span></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Middle Panel: Terminal Logs -->
+            <section class="panel logs-panel">
+                <h2>Báo cáo hoạt động (Real-time Logs)</h2>
+                <div id="logs-terminal" class="terminal">
+                    <div class="log-line system">[System] Sẵn sàng nhận lệnh. Nhập yêu cầu để bắt đầu...</div>
+                </div>
+            </section>
+
+            <!-- Right Panel: Code Viewer -->
+            <section class="panel code-panel">
+                <h2>Mã nguồn & Kết quả test</h2>
+                <div class="tabs">
+                    <button class="tab-btn active" onclick="switchTab('impl')">Implementation Code</button>
+                    <button class="tab-btn" onclick="switchTab('test')">Unit Tests</button>
+                </div>
+                <div class="code-container">
+                    <pre><code id="code-viewer" class="python"># Chưa có code sinh ra.</code></pre>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer / Experience Log -->
+        <footer>
+            <div class="foot-section">
+                <h3>Kinh nghiệm đã tích lũy (SQLite DB)</h3>
+                <div class="experience-list" id="experience-list">
+                    <div class="exp-item empty">Chưa có bài học kinh nghiệm nào được lưu trữ.</div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>window.SESSION_TOKEN = "{{ session_token }}";</script>
+    <script src="/static/js/app.js"></script>
+</body>
+</html>
