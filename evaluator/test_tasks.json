@@ -1,0 +1,51 @@
+[
+  {
+    "id": 1,
+    "title": "Cấu trúc cây Đỏ-Đen (Red-Black Tree)",
+    "description": "Viết một class RedBlackTree hoàn chỉnh hỗ trợ các thao tác: chèn nút (insert), xóa nút (delete), tìm kiếm (search), tìm giá trị nhỏ nhất/lớn nhất (minimum/maximum) và duyệt cây theo thứ tự tăng dần (inorder). Cây phải tự động cân bằng lại và đảm bảo tất cả 5 tính chất của cây Đỏ-Đen sau mọi thao tác thay đổi cấu trúc. Yêu cầu ném ngoại lệ ValueError nếu chèn giá trị trùng lặp hoặc xóa giá trị không tồn tại.",
+    "category": "Complex Data Structures",
+    "verification_keywords": ["RedBlackTree", "insert", "delete", "ValueError", "inorder", "black"]
+  },
+  {
+    "id": 2,
+    "title": "Bộ nhớ đệm LRU Cache hiệu năng cao O(1)",
+    "description": "Viết một class LRUCache hỗ trợ các thao tác get(key) và put(key, value) hoạt động với độ phức tạp thời gian trung bình strictly O(1). Khi bộ nhớ đệm đạt tới dung lượng (capacity) tối đa, nó phải tự động loại bỏ (evict) phần tử ít được sử dụng nhất (Least Recently Used). Không sử dụng các thư viện build-in có sẵn cấu trúc LRU (như collections.OrderedDict), bạn phải tự xây dựng cấu trúc Doubly Linked List kết hợp HashMap. Yêu cầu ném ngoại lệ ValueError nếu dung lượng khởi tạo <= 0.",
+    "category": "System Design & Algorithms",
+    "verification_keywords": ["LRUCache", "get", "put", "ValueError", "capacity"]
+  },
+  {
+    "id": 3,
+    "title": "Bộ khớp Regex bằng NFA (Regex NFA Matcher)",
+    "description": "Viết một class RegexMatcher hỗ trợ biên dịch (compile) một chuỗi biểu thức chính quy (hỗ trợ các ký tự đặc biệt '.', '*', '+', '?', '|' và dấu ngoặc lồng nhau) thành một đồ thị NFA (Non-deterministic Finite Automaton) và kiểm tra khớp (match) chuỗi đầu vào. Yêu cầu ném ngoại lệ ValueError nếu biểu thức chính quy không hợp lệ (ví dụ: mất ngoặc đóng, toán tử '*' đứng đầu chuỗi).",
+    "category": "Automata & Compilers",
+    "verification_keywords": ["RegexMatcher", "compile", "match", "ValueError"]
+  },
+  {
+    "id": 4,
+    "title": "Bộ phân tích và đánh giá JSONPath (JSONPath Evaluator)",
+    "description": "Viết một class JSONPathEvaluator hỗ trợ parse và truy vấn dữ liệu từ một JSON object bằng chuỗi JSONPath. Hỗ trợ các toán tử: truy cập con (.), đệ quy sâu (..), ký tự đại diện (*), truy cập mảng theo chỉ số ([0]), cắt mảng ([1:5]) và biểu thức lọc điều kiện ([?(@.key < value)]). Yêu cầu ném ngoại lệ ValueError nếu chuỗi JSONPath sai cú pháp.",
+    "category": "Parsing & Expression Matching",
+    "verification_keywords": ["JSONPathEvaluator", "query", "ValueError"]
+  },
+  {
+    "id": 5,
+    "title": "Bộ lập lịch công việc song song (Concurrent Job Scheduler)",
+    "description": "Viết một class ConcurrentJobScheduler cho phép quản lý và thực thi các task có phụ thuộc lẫn nhau (dependencies) dưới dạng đồ thị có hướng không chu trình (DAG). Scheduler phải tự phân giải thứ tự chạy hợp lệ (topological sort), chạy song song các job không phụ thuộc bằng ThreadPoolExecutor, hỗ trợ cấu hình số lần retry khi job lỗi và timeout cho từng job.",
+    "category": "Concurrency & Concurrency Control",
+    "verification_keywords": ["ConcurrentJobScheduler", "topological", "retry", "ThreadPoolExecutor"]
+  },
+  {
+    "id": 6,
+    "title": "Bộ thu gọn và làm mờ mã nguồn bằng AST (AST Python Minifier & Obfuscator)",
+    "description": "Viết một class PythonMinifier hỗ trợ phân tích cú pháp mã nguồn Python bằng mô-đun ast, tiến hành thu gọn và làm mờ mã nguồn bằng cách: loại bỏ toàn bộ docstrings và bình luận (comments), loại bỏ các import không được sử dụng, và đổi tên các biến cục bộ/tham số trong hàm sang các tên siêu ngắn ('a', 'b', 'c',...) một cách an toàn mà không làm thay đổi các biến toàn cục, các hàm builtin hoặc API công khai của lớp/hàm ngoài cùng. Kết quả trả về phải là mã nguồn Python hợp lệ và chạy cho ra kết quả tương đương 100%. Yêu cầu ném ngoại lệ ValueError nếu mã nguồn đầu vào không hợp lệ cú pháp.",
+    "category": "AST Manipulation & Code Analysis",
+    "verification_keywords": ["PythonMinifier", "minify", "ast", "ValueError"]
+  },
+  {
+    "id": 7,
+    "title": "Bộ mô phỏng đồng thuận Raft tối giản (Raft Consensus Replicator)",
+    "description": "Viết một class RaftNode để mô phỏng hoạt động đồng thuận của một nút trong cụm Raft. Hỗ trợ bầu cử leader (Leader Election) bằng cách đếm số phiếu từ các node khác khi nhận được yêu cầu bỏ phiếu (request_vote), duy trì bộ đếm thời gian heartbeat để phát hiện leader mất mạng và tự chuyển trạng thái từ Follower sang Candidate. Đồng thời hỗ trợ cơ chế sao chép nhật ký (Log Replication) thông qua append_entries, cập nhật commit_index và giải quyết xung đột khi log giữa các node không khớp nhau. Đảm bảo ném ngoại lệ ValueError nếu truyền tham số cấu hình không hợp lệ.",
+    "category": "Distributed Systems & Consensus",
+    "verification_keywords": ["RaftNode", "request_vote", "append_entries", "ValueError"]
+  }
+]
