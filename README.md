@@ -22,6 +22,30 @@
 
 ---
 
+## ⚠️ Honest Disclosure — Đọc trước khi dùng
+
+Đây là **experimental prototype**, KHÔNG phải sản phẩm production-ready (dù git history có ghi "Production-ready" — đó là commit message template lỗi, không phản ánh thực tế).
+
+1. **Test coverage còn mỏng.** Repo có 9 unit tests (`tests/test_ast_tools.py`, `test_code_executor.py`, `test_memory_db.py`, `test_security_scanner.py`) — chỉ cover tools layer, **không có test cho agents/ pipeline** (orchestrator, planner, coder, tester, healer, verifier). Multi-agent loop chưa được verify end-to-end bằng test.
+
+2. **"99% Token Compression" là claim marketing.** Con số này dựa trên `minify_code()` trong `tools/ast_tools.py` — xóa docstring + comment + whitespace trước khi gửi prompt cho LLM. Thực tế tiết kiệm token phụ thuộc vào tỷ lệ docstring/code trong từng codebase, dao động từ ~10% (code có ít comment) đến ~60% (code nhiều docstring). Không có benchmark chính thức trên codebase mẫu.
+
+3. **"Universal Agent Proxy" chưa được verify với Cursor/Cline/OpenHands thật.** README claim plug được vào Cursor/Aider/Claude Code/Cline/Continue/Roo Code/Bolt/OpenHands, nhưng repo không có integration test nào chứng minh proxy `http://127.0.0.1:8000/v1` thực sự compatible với OpenAI API spec ở mức production.
+
+4. **Infinite loop detection dựa trên MD5 hash traceback.** `orchestrator.py` dùng `hashlib.md5(traceback.encode())` để detect loop — sẽ bỏ sót loop khi traceback khác nhau chút xíu (vd đổi tên biến, thêm whitespace) dù lỗi giống hệt.
+
+5. **Lịch sử commit bất thường.** 5 commit cuối cùng đều có cùng message `"Initial commit: Production-ready Self-Healing Agent..."` — đây là pattern commit message spam, không phản ánh phát triển thật. Code bên dưới vẫn是真的 implementation, nhưng git history không dùng được để trace evolution.
+
+6. **Cho production multi-agent TDD, dùng các tool đã proven:**
+   - **Aider** (25k★, MIT) — pair-programming AI có `--auto-test` mode, git integration native.
+   - **OpenHands** (55k★, ex-OpenDevin) — open-source Devin clone với full agent loop.
+   - **Cline / Roo Code** — VSCode extension có auto-test loop, dùng hàng ngày.
+   - **SWE-agent** (Princeton) — research-grade, có paper NeurIPS.
+
+Repo này phù hợp để **học kiến trúc multi-agent TDD loop**, không phù hợp để thay thế Aider/OpenHands trong workflow production.
+
+---
+
 ## 🌟 Overview
 
 Current AI coding agents suffer from severe limitations: generating syntactically broken code, writing dummy placeholders (`# TODO` or mock data), deleting project directories by mistake, causing library version conflicts, and hallucinating non-existent package APIs.
