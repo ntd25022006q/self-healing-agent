@@ -1,6 +1,5 @@
 import subprocess
 import sys
-import os
 
 if __name__ == "__main__":
     print("[Shortcut] Triggering Agent Evaluation Suite...")

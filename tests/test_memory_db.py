@@ -1,6 +1,5 @@
 import sys
 import os
-import sqlite3
 
 # Add parent directory to sys.path
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
@@ -11,7 +10,7 @@ from config import Config
 test_db_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "test_memory.db"))
 Config.MEMORY_DB_PATH = test_db_path
 
-from tools.memory_db import MemoryDB
+from tools.memory_db import MemoryDB  # noqa: E402  — must run after Config.MEMORY_DB_PATH is set
 
 def setup_module(module):
     # Ensure test db is clean
