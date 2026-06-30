@@ -57,6 +57,50 @@ This repository is suitable for learning the multi-agent TDD loop architecture. 
 
 Current AI coding agents have well-known failure modes: generating syntactically broken code, emitting placeholders (`TODO`, mock data), deleting project files by mistake, causing version conflicts, and hallucinating APIs that do not exist. This project explores one possible mitigation: an autonomous multi-agent system that wraps a sandboxed environment and enforces a TDD cycle — design, code, execute, capture tracebacks, heal, and audit — before any change reaches the main codebase.
 
+## Architecture
+
+```mermaid
+flowchart TB
+    User[User prompt<br/>or zero-prompt mode]
+
+    subgraph Orchestrator[Orchestrator Agent]
+        O1[Backup<br/>git checkpoint]
+        O2[Loop Detection<br/>MD5 hash of traceback]
+        O3[Restore on Failure<br/>git reset --hard]
+    end
+
+    subgraph Pipeline[5-Agent TDD Pipeline]
+        P1[Planner<br/>UML + dataflow design]
+        P2[Coder<br/>writes implementation]
+        P3[Tester<br/>runs pytest in venv]
+        P4[Healer<br/>reads traceback, fixes]
+        P5[Verifier<br/>AST mock detection<br/>+ security scan]
+    end
+
+    subgraph Tools[Tools Layer]
+        T1[ASTTools<br/>minify + parse]
+        T2[MemoryDB<br/>SQLite experiences]
+        T3[CodeExecutor<br/>venv sandbox]
+        T4[SecurityScanner<br/>regex secret patterns]
+        T5[WebSearch<br/>PyPI / GitHub verify]
+    end
+
+    subgraph Proxy[OpenAI-Compatible Proxy]
+        PR1[FastAPI /v1/chat/completions]
+        PR2[Loopback only<br/>127.0.0.1:8000]
+    end
+
+    User --> Orchestrator
+    Orchestrator --> Pipeline
+    P1 --> P2 --> P3
+    P3 -- pass --> P5
+    P3 -- fail --> P4 --> P2
+    P5 -- issues --> P4
+    P5 -- clean --> Done[Commit]
+    Pipeline --> Tools
+    Proxy -.intercepts.-> Pipeline
+```
+
 ---
 
 ## Built With
